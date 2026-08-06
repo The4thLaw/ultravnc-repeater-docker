@@ -13,29 +13,41 @@ wget http://www.wisdomsoftware.gr/download/uvncrep017-ws.tar.gz
 ## Get build packages
 For Debian use:
 
+```shell
 apt-get install linux-headers-`uname -r` libx11-6 libx11-dev x-window-system-core x-window-system xspecs libxtst6 psmisc build-essential
+```
 
 For CentOS use:
 
+```shell
 yum install linux-headers-`uname -r` libx11-6 libx11-dev x-window-system-core x-window-system xspecs libxtst6 psmisc build-essential
+```
 
 ## Get source into /usr/local/src
 
+```shell
 cd /usr/local/src
 
 wget http://www.wisdomsoftware.gr/download/uvncrep017-ws.tar.gz
+```
 
 
 ## Unzip source file
+```shell
 gunzip uvncrep017-ws.tar.gz
 tar -xvf uvncrep017-ws.tar
+```
 
 ## Install startup script
+```shell
 cd uvncrep017-ws
-make; make install;
+make && make install
+```
 
 ## Add a user for the service
+```shell
 useradd uvncrep
+```
 
 ## Edit /etc/uvnc/uvncrepeater.ini according to your needs.
 ## Check the following parameters:
@@ -48,7 +60,9 @@ srvListDeny0 = 127.0.0.1 ;Deny loopback
 requirelistedserver=1
 
 ## Start the service
+```shell
 /etc/init.d/uvncrepeater start
+```
 
 Enjoy!
 
