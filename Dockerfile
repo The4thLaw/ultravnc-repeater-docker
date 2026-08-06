@@ -1,10 +1,14 @@
-FROM debian:trixie
+FROM debian:trixie as builder
 RUN apt update
 RUN DEBIAN_FRONTEND=noninteractive apt install -y git linux-headers-amd64 libx11-6 libx11-dev xorg libxtst6 psmisc build-essential
 WORKDIR /usr/local/src
 COPY src uvnc-repeater
 WORKDIR /usr/local/src/uvnc-repeater
 RUN make
+
+FROM debian:trixie-slim as runner
+COPY --from=builder /usr/local/src/uvnc-repeater /usr/local/src/uvnc-repeater
+WORKDIR /usr/local/src/uvnc-repeater
 
 COPY src/os/uvncrepeater.ini /etc/uvnc/uvncrepeater.ini 
 RUN useradd uvncrep
