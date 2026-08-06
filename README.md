@@ -1,71 +1,22 @@
-# UltraVNC Repeater
+# UltraVNC Repeater (Docker image)
 
-## How to install UltraVNC Repeater for Linux (Debian & CentOS)
+This is a docker image for the Linux port of UltraVNC. It is based on work done in/by
+- Jari Korhonen
+- http://forum.ultravnc.info/viewtopic.php?p=80701
+- https://github.com/qian-jiahong/uvncrep017-ws
+- https://github.com/rssun/uvncrep017-ws
 
-We have created a version based on the repeater014.zip version which is at
+## Building the image
 
-http://koti.mbnet.fi/jtko/uvncrepeater/repeater014.zip
-
-So, you can download UltraVNC repeater by giving 
-
-wget http://www.wisdomsoftware.gr/download/uvncrep017-ws.tar.gz
-
-## Get build packages
-For Debian use:
-
+This docker image is currently not hosted anywhere so you'll need to build it. Run
 ```shell
-apt-get install linux-headers-`uname -r` libx11-6 libx11-dev x-window-system-core x-window-system xspecs libxtst6 psmisc build-essential
+docker build -t ultravnc-repeater:0.14.1 .
 ```
 
-For CentOS use:
-
+## Running the container
+Using the standard TCP ports, run
 ```shell
-yum install linux-headers-`uname -r` libx11-6 libx11-dev x-window-system-core x-window-system xspecs libxtst6 psmisc build-essential
+docker run -ti -p 5901:5901 -p 5500:5500 ultravnc-repeater:0.14.1
 ```
 
-## Get source into /usr/local/src
-
-```shell
-cd /usr/local/src
-
-wget http://www.wisdomsoftware.gr/download/uvncrep017-ws.tar.gz
-```
-
-
-## Unzip source file
-```shell
-gunzip uvncrep017-ws.tar.gz
-tar -xvf uvncrep017-ws.tar
-```
-
-## Install startup script
-```shell
-cd uvncrep017-ws
-make && make install
-```
-
-## Add a user for the service
-```shell
-useradd uvncrep
-```
-
-## Edit /etc/uvnc/uvncrepeater.ini according to your needs.
-## Check the following parameters:
-viewerport = 5901
-maxsessions = 10
-runasuser = uvncrep
-logginglevel = 2
-srvListAllow1 = 192.168.0.0 ;Allow network 192.168.x.x
-srvListDeny0 = 127.0.0.1 ;Deny loopback
-requirelistedserver=1
-
-## Start the service
-```shell
-/etc/init.d/uvncrepeater start
-```
-
-Enjoy!
-
-P.S. You can also check our post at:
-
-http://forum.ultravnc.info/viewtopic.php?p=80701
+Logs are sent to stdout so use Docker's logging facilities to access them.
