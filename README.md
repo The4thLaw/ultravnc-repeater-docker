@@ -45,6 +45,10 @@ Run
 ssvncviewer -repeater ID:<the_same_id_as_the_server> <your_host>:5901
 ```
 
+## Known issues
+
+- The repeater isn't too good at handling disconnecting servers/clients if the network is unreliable. Restarting the container is the easier option.
+
 ## Future
 
 There are no plans for significant evolutions of this project. I needed something that worked in an isolated and reliable manner. I also have limited knowledge of C++ so 
